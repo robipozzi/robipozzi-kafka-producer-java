@@ -1,32 +1,55 @@
 package com.rpozzi.kafka;
 
-import org.apache.kafka.clients.admin.NewTopic;
+import java.util.Arrays;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.kafka.core.KafkaTemplate;
+import com.rpozzi.kafka.dto.SensorSimulator;
 
 @SpringBootApplication
 public class KafkaProducerApplication {
+	private static final Logger logger = LoggerFactory.getLogger(KafkaProducerApplication.class);
+	@Value(value = "${kafka.topic.temperatures}")
+	private String temperaturesKafkaTopic;
 
 	public static void main(String[] args) {
-		SpringApplication.run(KafkaProducerApplication.class, args);
+		ApplicationContext ctx = SpringApplication.run(KafkaProducerApplication.class, args);
+		logger.info("Application " + ctx.getApplicationName() + " started !!!");
 	}
 	
 	@Bean
-    public NewTopic topic() {
-        return TopicBuilder.name("temperatures")
-                .partitions(10)
-                .replicas(1)
-                .build();
-    }
+	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
+		return args -> {
+			logger.debug("Let's inspect the beans provided by Spring Boot:");
+			logger.debug("************** Spring Boot beans - START **************");
+			String[] beanNames = ctx.getBeanDefinitionNames();
+			Arrays.sort(beanNames);
+			for (String beanName : beanNames) {
+				logger.debug(beanName);
+			}
+			logger.debug("************** Spring Boot beans - END **************");
+		};
+	}
 
     @Bean
     public ApplicationRunner runner(KafkaTemplate<String, String> template) {
         return args -> {
-            template.send("temperatures", "test");
+        	while (true) {
+        		SensorSimulator sensorSimulator = new SensorSimulator();
+        		logger.debug("Sensor Simulator Json string : " + sensorSimulator.toString());
+        		logger.debug("Publishing to '" + temperaturesKafkaTopic + "' Kafka topic ...");
+				template.send(temperaturesKafkaTopic, sensorSimulator.toString());
+        		logger.debug("Sleep for 5 seconds");
+        		Thread.sleep(5000);
+			}
+            
         };
     }
 
