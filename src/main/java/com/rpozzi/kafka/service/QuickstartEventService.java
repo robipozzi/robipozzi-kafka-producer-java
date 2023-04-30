@@ -6,7 +6,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
-public class MessageService {
+public class QuickstartEventService {
 	@Autowired
 	private KafkaTemplate<String, String> template;
 	@Value(value = "${kafka.topic.quickstartevents}")
