@@ -36,7 +36,6 @@ public class KafkaProducerApplication {
         		logger.debug("Sleep for 5 seconds");
         		Thread.sleep(5000);
 			}
-            
         };
     }
     
