@@ -21,7 +21,7 @@ public class KafkaProducerApplication {
 
 	public static void main(String[] args) {
 		ApplicationContext ctx = SpringApplication.run(KafkaProducerApplication.class, args);
-		logger.info("Application " + ctx.getApplicationName() + " started !!!");
+		logger.info("Application " + ctx.getId() + " started !!!");
 	}
 	
 	@Bean
