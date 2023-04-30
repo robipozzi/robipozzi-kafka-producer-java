@@ -3,7 +3,7 @@ package com.rpozzi.kafka;
 import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -11,20 +11,40 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
-import com.rpozzi.kafka.dto.SensorSimulator;
+import com.rpozzi.kafka.service.TemperatureSensorSimulationService;
 
 @SpringBootApplication
 public class KafkaProducerApplication {
 	private static final Logger logger = LoggerFactory.getLogger(KafkaProducerApplication.class);
-	@Value(value = "${kafka.topic.temperatures}")
-	private String temperaturesKafkaTopic;
-
+	@Autowired
+	private TemperatureSensorSimulationService temperatureSensorSimulationSrv;
+	
 	public static void main(String[] args) {
 		ApplicationContext ctx = SpringApplication.run(KafkaProducerApplication.class, args);
 		logger.info("Application " + ctx.getId() + " started !!!");
 	}
+
+	/****************************************************/
+	/****** Kafka publish services - Section START ******/
+	/****************************************************/
 	
-	@Bean
+    @Bean
+    public ApplicationRunner runner(KafkaTemplate<String, String> template) {
+        return args -> {
+        	while (true) {
+        		temperatureSensorSimulationSrv.publish();
+        		logger.debug("Sleep for 5 seconds");
+        		Thread.sleep(5000);
+			}
+            
+        };
+    }
+    
+    /**************************************************/
+	/****** Kafka publish services - Section END ******/
+	/**************************************************/
+    
+    @Bean
 	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
 		return args -> {
 			logger.debug("Let's inspect the beans provided by Spring Boot:");
@@ -37,20 +57,5 @@ public class KafkaProducerApplication {
 			logger.debug("************** Spring Boot beans - END **************");
 		};
 	}
-
-    @Bean
-    public ApplicationRunner runner(KafkaTemplate<String, String> template) {
-        return args -> {
-        	while (true) {
-        		SensorSimulator sensorSimulator = new SensorSimulator();
-        		logger.debug("Sensor Simulator Json string : " + sensorSimulator.toString());
-        		logger.debug("Publishing to '" + temperaturesKafkaTopic + "' Kafka topic ...");
-				template.send(temperaturesKafkaTopic, sensorSimulator.toString());
-        		logger.debug("Sleep for 5 seconds");
-        		Thread.sleep(5000);
-			}
-            
-        };
-    }
 
 }
