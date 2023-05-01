@@ -48,18 +48,16 @@ setBootstrapServer()
 
 inputKafkaTopic()
 {
-	echo ${grn}Input Kafka Topic : ${end}
-	read TOPIC
-	setKafkaTopic
-}
-
-setKafkaTopic()
-{  
-	if [ -z $TOPIC ]; then
-		echo ${red}No Kafka topic${end}
-		inputKafkaTopic
-	fi
-	KAFKA_TOPIC=$TOPIC
+    ###### Set Kafka Topic
+    if [ "$KAFKA_TOPIC" != "" ]; then
+        echo Kafka topic is set to $KAFKA_TOPIC
+    else
+        echo ${grn}Enter Kafka topic - leaving blank will set topic to ${end}${mag}$TEMPERATURES_TOPIC : ${end}
+        read KAFKA_TOPIC
+        if [ "$KAFKA_TOPIC" == "" ]; then
+            KAFKA_TOPIC=$TEMPERATURES_TOPIC
+        fi
+    fi
 }
 # ***** Function section - END
 
