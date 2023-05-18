@@ -3,7 +3,7 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-src/main/resources/application-confluent.properties
+src/main/resources/application-confluent2.properties
 
 ### STS ###
 .apt_generated
