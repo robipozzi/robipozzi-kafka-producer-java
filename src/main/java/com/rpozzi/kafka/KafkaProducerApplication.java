@@ -11,10 +11,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.kafka.core.KafkaTemplate;
 import com.rpozzi.kafka.service.TemperatureSensorSimulationService;
 
 @SpringBootApplication
+@ComponentScan(basePackages = { "com.rpozzi.kafka" })
 public class KafkaProducerApplication {
 	private static final Logger logger = LoggerFactory.getLogger(KafkaProducerApplication.class);
 	@Value(value = "${spring.kafka.bootstrap-servers}")
