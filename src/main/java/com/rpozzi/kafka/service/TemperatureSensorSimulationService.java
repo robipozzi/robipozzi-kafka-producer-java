@@ -19,7 +19,7 @@ public class TemperatureSensorSimulationService {
 	public void publish() {
 		SensorSimulator sensorSimulator = new SensorSimulator();
 		logger.debug("Sensor Simulator Json string : " + sensorSimulator.toString());
-		logger.debug("Publishing to '" + temperaturesKafkaTopic + "' Kafka topic ...");
+		logger.debug("Publishing to '" + temperaturesKafkaTopic + "' Kafka topic (using SpringBoot Kafka APIs) ...");
 		template.send(temperaturesKafkaTopic, sensorSimulator.toString());
 	}
 }

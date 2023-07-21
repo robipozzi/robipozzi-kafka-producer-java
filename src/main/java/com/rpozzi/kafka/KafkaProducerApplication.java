@@ -4,6 +4,7 @@ import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,12 +17,13 @@ import com.rpozzi.kafka.service.TemperatureSensorSimulationService;
 @SpringBootApplication
 public class KafkaProducerApplication {
 	private static final Logger logger = LoggerFactory.getLogger(KafkaProducerApplication.class);
+	@Value(value = "${spring.kafka.bootstrap-servers}")
+	private String kafkaBootstrapServers;
 	@Autowired
 	private TemperatureSensorSimulationService temperatureSensorSimulationSrv;
 	
 	public static void main(String[] args) {
-		ApplicationContext ctx = SpringApplication.run(KafkaProducerApplication.class, args);
-		logger.info("Application " + ctx.getId() + " started !!!");
+		SpringApplication.run(KafkaProducerApplication.class, args);
 	}
 
 	/****************************************************/
@@ -54,6 +56,13 @@ public class KafkaProducerApplication {
 				logger.debug(beanName);
 			}
 			logger.debug("************** Spring Boot beans - END **************");
+			
+			logger.debug("Print application configuration parameters");
+			logger.debug("************** Application configuration parameters - START **************");
+			logger.debug("Kafka Bootstrap Servers :  " + kafkaBootstrapServers);
+			logger.debug("************** Application configuration parameters - END **************");
+			
+			logger.info("Application " + ctx.getId() + " started !!!");
 		};
 	}
 
