@@ -11,7 +11,7 @@ coffee3="${coffee} ${coffee} ${coffee}"
 ##### Terminal Colors - END
 
 ##### Variable section - START
-SCRIPT=run-consumer.sh
+SCRIPT=run-producer.sh
 PROFILE_OPTION=$1
 ##### Variable section - END
 
