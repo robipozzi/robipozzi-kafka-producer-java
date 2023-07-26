@@ -12,7 +12,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.kafka.core.KafkaTemplate;
 import com.rpozzi.kafka.service.TemperatureSensorSimulationService;
 
 @SpringBootApplication
@@ -33,7 +32,7 @@ public class KafkaProducerApplication {
 	/****************************************************/
 	
     @Bean
-    public ApplicationRunner runner(KafkaTemplate<String, String> template) {
+    public ApplicationRunner runner() {
         return args -> {
         	while (true) {
         		temperatureSensorSimulationSrv.publish();
