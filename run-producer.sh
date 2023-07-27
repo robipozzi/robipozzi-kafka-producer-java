@@ -12,6 +12,8 @@ coffee3="${coffee} ${coffee} ${coffee}"
 
 ##### Variable section - START
 SCRIPT=run-producer.sh
+JAR_NAME=robipozzi-kafka-producer-java
+VERSION=0.0.1-SNAPSHOT
 PROFILE_OPTION=$1
 ##### Variable section - END
 
@@ -23,9 +25,9 @@ main()
 	java -version
 	
 	case $PROFILE_OPTION in
-		1)  java -jar target/robipozzi-kafka-producer-java-0.0.1-SNAPSHOT.jar
+		1)  java -jar target/$JAR_NAME-$VERSION.jar
 			;;
-        2)  java -jar target/robipozzi-kafka-producer-java-0.0.1-SNAPSHOT.jar --spring.profiles.active=confluent
+        2)  java -jar target/$JAR_NAME-$VERSION.jar --spring.profiles.active=confluent
             ;;
 		*) 	printf "\n${red}No valid option selected${end}\n"
 			printProfile
