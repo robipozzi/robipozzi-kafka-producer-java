@@ -43,7 +43,7 @@ for details and examples.
 
 ## How the application works
 The application implements a Kafka Producer that publishes fake random temperature data to a Kafka topic called *temperature* 
-(configurable in the **[application.properties](src/main/resources/application.properties)** configuration files, simulating the behavior of a real 
+(configurable in the **[application.properties](src/main/resources/application.properties)** configuration file, simulating the behavior of a real 
 Temperature sensor that continuosly reads temperature from the environment and sends it to Kafka.
  
 As said in the introduction, the code for this application is based on:
@@ -143,4 +143,12 @@ public class KafkaProducerApplication {
 }
 ```
 
+It is out of scope of this doc to explain in detail how Spring Boot works, for our purposes let's just concentrate on the piece of code where the "magic" happens:
+once the application is started via *main()* method, the *runner()* method is also kicked in, where an infinite *while()* loop calls 
+**temperatureSensorSimulationSrv.publish()** every 5 seconds.
 
+But where **temperatureSensorSimulationSrv** comes from? Well it is just injected via the following Spring Boot annotation 
+```
+@Autowired
+private TemperatureSensorSimulationService temperatureSensorSimulationSrv;
+```
