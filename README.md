@@ -44,8 +44,8 @@ for details and examples.
 ## How the application works
 As said in the introduction, the code for this application is based on:
 - **Maven** : here is the **POM(#pom.xml)** that defines project structure, configuration and library dependencies  
-``
-<dependencies>
+```
+	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
@@ -65,7 +65,7 @@ As said in the introduction, the code for this application is based on:
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-``
+```
 	
 - **Spring Boot 3.1.2** : as any Spring Boot application it has a specific configuration file called **application.properties(#src/main/resources/application.properties)**
 
