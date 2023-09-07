@@ -81,7 +81,7 @@ as any Spring Boot application, it has a specific configuration file called **[a
 - **Kafka libraries**: they are injected as Spring dependencies, as it can be seen in the **[POM](pom.xml)** dependencies section.
 
 Every Spring Boot application needs to have a main class annotated as **@SpringBootApplication**; our application main class is 
-**[KafkaProducerApplication](src/main/java/com/rpozzi/kafka/KafkaProducerApplication)**, whose code is reported here below for reference
+**[KafkaProducerApplication](src/main/java/com/rpozzi/kafka/KafkaProducerApplication.java)**, whose code is reported here below for reference
 ```
 @SpringBootApplication
 @ComponentScan(basePackages = { "com.rpozzi.kafka" })
