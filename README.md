@@ -43,7 +43,7 @@ for details and examples.
 
 ## How the application works
 As said in the introduction, the code for this application is based on:
-- **Maven**: here is the **POM(#pom.xml)** that defines project configuration; the library dependencies section is reported here below  
+- **Maven**: here is the **[POM](pom.xml)** that defines project configuration; the library dependencies section is reported here below
 ```
 	<dependencies>
 		<dependency>
@@ -67,8 +67,8 @@ As said in the introduction, the code for this application is based on:
 	</dependencies>
 ```
 	
-- **Spring Boot 3.1.2**: the usage of Spring Boot framework v3.1.2, with all its implicit dependencies, is declared in the same **POM(#pom.xml)**; 
-as any Spring Boot application, it has a specific configuration file called **application.properties(#src/main/resources/application.properties)**
+- **Spring Boot 3.1.2**: the usage of Spring Boot framework v3.1.2, with all its implicit dependencies, is declared in the same **[POM](pom.xml)**; 
+as any Spring Boot application, it has a specific configuration file called **[application.properties](src/main/resources/application.properties)**
 ```
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -78,4 +78,63 @@ as any Spring Boot application, it has a specific configuration file called **ap
 	</parent>
 ```
 
-and Kafka libraries, injected as Spring dependencies.
+- **Kafka libraries**: they are injected as Spring dependencies, as it can be seen in the **[POM](pom.xml)** dependencies section.
+
+Every Spring Boot application needs to have a main class annotated as **@SpringBootApplication**; our application main class is 
+**[KafkaProducerApplication](src/main/java/com/rpozzi/kafka/KafkaProducerApplication)**, whose code is reported here below for reference
+```
+@SpringBootApplication
+@ComponentScan(basePackages = { "com.rpozzi.kafka" })
+public class KafkaProducerApplication {
+	private static final Logger logger = LoggerFactory.getLogger(KafkaProducerApplication.class);
+	@Value(value = "${spring.kafka.bootstrap-servers}")
+	private String kafkaBootstrapServers;
+	@Autowired
+	private TemperatureSensorSimulationService temperatureSensorSimulationSrv;
+	
+	public static void main(String[] args) {
+		SpringApplication.run(KafkaProducerApplication.class, args);
+	}
+
+	/****************************************************/
+	/****** Kafka publish services - Section START ******/
+	/****************************************************/
+	
+    @Bean
+    public ApplicationRunner runner() {
+        return args -> {
+        	while (true) {
+        		temperatureSensorSimulationSrv.publish();
+        		logger.debug("Sleep for 5 seconds");
+        		Thread.sleep(5000);
+			}
+        };
+    }
+    
+    /**************************************************/
+	/****** Kafka publish services - Section END ******/
+	/**************************************************/
+    
+    @Bean
+	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
+		return args -> {
+			logger.debug("Let's inspect the beans provided by Spring Boot:");
+			logger.debug("************** Spring Boot beans - START **************");
+			String[] beanNames = ctx.getBeanDefinitionNames();
+			Arrays.sort(beanNames);
+			for (String beanName : beanNames) {
+				logger.debug(beanName);
+			}
+			logger.debug("************** Spring Boot beans - END **************");
+			
+			logger.debug("Print application configuration parameters");
+			logger.debug("************** Application configuration parameters - START **************");
+			logger.debug("Kafka Bootstrap Servers :  " + kafkaBootstrapServers);
+			logger.debug("************** Application configuration parameters - END **************");
+			
+			logger.info("Application " + ctx.getId() + " started !!!");
+		};
+	}
+
+}
+```
