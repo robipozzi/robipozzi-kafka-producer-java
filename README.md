@@ -22,17 +22,20 @@ git clone https://github.com/robipozzi/robipozzi-kafka-producer-java
 ## Setup and run Kafka
 To see how a Kafka producer works, you will need to setup a few things in advance, such as a Kafka cluster to interact with and Kafka topic to produce and consume 
 messages; also it could be useful to have some Kafka consumers to test the messages have been correctly produced by our Kafka producer: everything is already described
-in details in this GitHub repository https://github.com/robipozzi/robipozzi-kafka, you will find pointers to the appropriate content in the paragraphs below; 
+in details in this GitHub repository https://github.com/robipozzi/robipozzi-kafka, you will find pointers to the appropriate content in the paragraphs below;.
 
 ### Run Kafka cluster on local environment
 One option to run a Kafka cluster is obviously installing and running locally, please refer to https://github.com/robipozzi/robipozzi-kafka#run-Kafka-cluster-on-local-environment
 for all the details.
 
 ### Run Kafka cluster on Confluent
-Refer to https://github.com/robipozzi/robipozzi-kafka#run-Kafka-cluster-on-confluent
+Another option to setup a Kafka cluster is to use a Cloud solution, for instance Confluent (https://www.confluent.io/), you can refer to https://github.com/robipozzi/robipozzi-kafka#run-Kafka-cluster-on-confluent 
+for details regarding this option.
 
 ### Create, delete and describe Kafka topics
-https://github.com/robipozzi/robipozzi-kafka#create-delete-and-describe-kafka-topics
+Once the Kafka cluster has been setup, you can find details on how to manage topics (i.e.: create, delete, ...) at https://github.com/robipozzi/robipozzi-kafka#create-delete-and-describe-kafka-topics
 
 ### Producers and consumers using Kafka command line tools
-Refer to https://github.com/robipozzi/robipozzi-kafka#producers-and-consumers-using-Kafka-command-line-tools
+The code in this repository is focused on Kafka producers exclusively, so you won't find any example of usable Kafka consumers; luckily
+Kafka provides a very convenient way to start consumers via command line: refer to https://github.com/robipozzi/robipozzi-kafka#producers-and-consumers-using-Kafka-command-line-tools
+for details and examples.
