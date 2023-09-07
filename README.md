@@ -43,7 +43,7 @@ for details and examples.
 
 ## How the application works
 As said in the introduction, the code for this application is based on:
-- **Maven** : here is the **POM(#pom.xml)** that defines project structure, configuration and library dependencies  
+- **Maven**: here is the **POM(#pom.xml)** that defines project configuration; the library dependencies section is reported here below  
 ```
 	<dependencies>
 		<dependency>
@@ -67,6 +67,15 @@ As said in the introduction, the code for this application is based on:
 	</dependencies>
 ```
 	
-- **Spring Boot 3.1.2** : as any Spring Boot application it has a specific configuration file called **application.properties(#src/main/resources/application.properties)**
+- **Spring Boot 3.1.2**: the usage of Spring Boot framework v3.1.2, with all its implicit dependencies, is declared in the same **POM(#pom.xml)**; 
+as any Spring Boot application, it has a specific configuration file called **application.properties(#src/main/resources/application.properties)**
+```
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.1.2</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+```
 
 and Kafka libraries, injected as Spring dependencies.
