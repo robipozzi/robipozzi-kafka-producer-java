@@ -43,5 +43,30 @@ for details and examples.
 
 ## How the application works
 As said in the introduction, the code for this application is based on:
-- Maven : here is the POM(#pom.xml) that 
-- Spring Boot 3.1.2 and Kafka libraries, injected as Spring dependencies.
+- **Maven** : here is the **POM(#pom.xml)** that defines project structure, configuration and library dependencies  
+``
+<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+``
+	
+- **Spring Boot 3.1.2** : as any Spring Boot application it has a specific configuration file called **application.properties(#src/main/resources/application.properties)**
+
+and Kafka libraries, injected as Spring dependencies.
