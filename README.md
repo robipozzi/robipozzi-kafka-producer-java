@@ -5,6 +5,7 @@
     - [Run Kafka cluster on Confluent](#run-Kafka-cluster-on-confluent)
     - [Create, delete and describe Kafka topics](#create-delete-and-describe-kafka-topics)
     - [Producers and consumers using Kafka command line tools](#producers-and-consumers-using-Kafka-command-line-tools)
+- [How the application works](#how-the-application-works)
     
 ## Introduction
 This repository provides code and scripts to experiment with Kafka producer Java client technology.
@@ -39,3 +40,8 @@ Once the Kafka cluster has been setup, you can find details on how to manage top
 The code in this repository is focused on Kafka producers exclusively, so you won't find any example of usable Kafka consumers; luckily
 Kafka provides a very convenient way to start consumers via command line: refer to https://github.com/robipozzi/robipozzi-kafka#producers-and-consumers-using-Kafka-command-line-tools
 for details and examples.
+
+## How the application works
+As said in the introduction, the code for this application is based on:
+- Maven : here is the POM(#pom.xml) that 
+- Spring Boot 3.1.2 and Kafka libraries, injected as Spring dependencies.
