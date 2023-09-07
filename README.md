@@ -42,6 +42,10 @@ Kafka provides a very convenient way to start consumers via command line: refer 
 for details and examples.
 
 ## How the application works
+The application implements a Kafka Producer that publishes fake random temperature data to a Kafka topic called *temperature* 
+(configurable in the **[application.properties](src/main/resources/application.properties)** configuration files, simulating the behavior of a real 
+Temperature sensor that continuosly reads temperature from the environment and sends it to Kafka.
+ 
 As said in the introduction, the code for this application is based on:
 - **Maven**: here is the **[POM](pom.xml)** that defines project configuration; the library dependencies section is reported here below
 ```
@@ -138,3 +142,5 @@ public class KafkaProducerApplication {
 
 }
 ```
+
+
