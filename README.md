@@ -147,16 +147,17 @@ It is out of scope of this doc to explain in detail how Spring Boot works, for o
 once the application is started via *main()* method, the *runner()* method is also kicked in, where an infinite *while()* loop calls 
 **temperatureSensorSimulationSrv.publish()** every 5 seconds.
 
-But where **temperatureSensorSimulationSrv** comes from? Well it is just an instance of **[TemperatureSensorSimulationService](src/main/java/com/rpozzi/kafka/service/TemperatureSensorSimulationService.java)**, 
-whose code is reported here below for reference, injected via the following Spring Boot annotation 
+But where **temperatureSensorSimulationSrv** comes from? Well it is just an instance of 
+**[TemperatureSensorSimulationService](src/main/java/com/rpozzi/kafka/service/TemperatureSensorSimulationService.java)**, whose code is reported here below 
+for reference, injected via the following Spring Boot annotation 
 ```
 @Autowired
 private TemperatureSensorSimulationService temperatureSensorSimulationSrv;
 ```
 The **[TemperatureSensorSimulationService](src/main/java/com/rpozzi/kafka/service/TemperatureSensorSimulationService.java)** class has a *publishMsg()* method 
-that uses **KafkaTemplate** (which is a Spring Framework abstraction to interact with Kafka APIs) to publish a message to a Kafka topic called *temperature*, 
-injected as property *temperaturesKafkaTopic* and read from *kafka.topic.temperatures* key in **[application.properties](src/main/resources/application.properties)**
-configuration file
+that uses **KafkaTemplate** (which is an abstraction provided by Spring Framework to interact with Kafka APIs) to publish a message to a Kafka topic called 
+*temperature*, injected as property *temperaturesKafkaTopic* (whose value is read from *kafka.topic.temperatures* key in 
+**[application.properties](src/main/resources/application.properties)** configuration file
 
 ```
 @Service
