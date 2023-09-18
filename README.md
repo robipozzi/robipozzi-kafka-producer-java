@@ -153,7 +153,10 @@ whose code is reported here below for reference, injected via the following Spri
 @Autowired
 private TemperatureSensorSimulationService temperatureSensorSimulationSrv;
 ```
-xxxx
+The **[TemperatureSensorSimulationService](src/main/java/com/rpozzi/kafka/service/TemperatureSensorSimulationService.java)** class has a *publishMsg()* method 
+that uses **KafkaTemplate** (which is a Spring Framework abstraction to interact with Kafka APIs) to publish a message to a Kafka topic called *temperature*, 
+injected as property *temperaturesKafkaTopic* and read from *kafka.topic.temperatures* key in **[application.properties](src/main/resources/application.properties)**
+configuration file
 
 ```
 @Service
