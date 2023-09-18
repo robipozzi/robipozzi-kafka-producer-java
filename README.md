@@ -147,9 +147,33 @@ It is out of scope of this doc to explain in detail how Spring Boot works, for o
 once the application is started via *main()* method, the *runner()* method is also kicked in, where an infinite *while()* loop calls 
 **temperatureSensorSimulationSrv.publish()** every 5 seconds.
 
-But where **temperatureSensorSimulationSrv** comes from? Well it is just an instance of **TemperatureSensorSimulationService** injected via the following Spring Boot annotation 
+But where **temperatureSensorSimulationSrv** comes from? Well it is just an instance of **[TemperatureSensorSimulationService](src/main/java/com/rpozzi/kafka/service/TemperatureSensorSimulationService.java)**, 
+whose code is reported here below for reference, injected via the following Spring Boot annotation 
 ```
 @Autowired
 private TemperatureSensorSimulationService temperatureSensorSimulationSrv;
 ```
 xxxx
+
+```
+@Service
+public class TemperatureSensorSimulationService extends AKafkaProducer {
+	private static final String GROUP_ID_CONFIG = "robi-temperatures";
+	@Value(value = "${kafka.topic.temperatures}")
+	private String temperaturesKafkaTopic;
+
+	@Override
+	protected void customizeProducerConfigProps() {
+		producerConfigProps.put(ConsumerConfig.GROUP_ID_CONFIG, TemperatureSensorSimulationService.GROUP_ID_CONFIG);
+	}
+
+	@Override
+	protected void publishMsg(KafkaTemplate<String, Object> kafkaTemplate) {
+		SensorSimulator sensorSimulator = new SensorSimulator();
+		logger.debug("Sensor Simulator Json string : " + sensorSimulator.toString());
+		logger.info("Publishing to '" + temperaturesKafkaTopic + "' Kafka topic (using SpringBoot Kafka APIs) ...");
+		kafkaTemplate.send(temperaturesKafkaTopic, sensorSimulator.toString());
+	}
+}
+```
+TODO
