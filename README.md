@@ -49,37 +49,37 @@ Temperature sensor that continuosly reads temperature from the environment and s
 As said in the introduction, the code for this application is based on:
 - **Maven**: here is the **[POM](pom.xml)** that defines project configuration; the library dependencies section is reported here below
 ```
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.kafka</groupId>
-			<artifactId>spring-kafka</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.kafka</groupId>
-			<artifactId>spring-kafka-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+<dependencies>
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.kafka</groupId>
+		<artifactId>spring-kafka</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-test</artifactId>
+		<scope>test</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.kafka</groupId>
+		<artifactId>spring-kafka-test</artifactId>
+		<scope>test</scope>
+	</dependency>
+</dependencies>
 ```
 	
 - **Spring Boot 3.1.2**: the usage of Spring Boot framework v3.1.2, with all its implicit dependencies, is declared in the same **[POM](pom.xml)**; 
 as any Spring Boot application, it has a specific configuration file called **[application.properties](src/main/resources/application.properties)**
 ```
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.1.2</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
+<parent>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-parent</artifactId>
+	<version>3.1.2</version>
+	<relativePath/> <!-- lookup parent from repository -->
+</parent>
 ```
 
 - **Kafka libraries**: they are injected as Spring dependencies, as it can be seen in the **[POM](pom.xml)** dependencies section.
@@ -147,8 +147,9 @@ It is out of scope of this doc to explain in detail how Spring Boot works, for o
 once the application is started via *main()* method, the *runner()* method is also kicked in, where an infinite *while()* loop calls 
 **temperatureSensorSimulationSrv.publish()** every 5 seconds.
 
-But where **temperatureSensorSimulationSrv** comes from? Well it is just injected via the following Spring Boot annotation 
+But where **temperatureSensorSimulationSrv** comes from? Well it is just an instance of **TemperatureSensorSimulationService** injected via the following Spring Boot annotation 
 ```
 @Autowired
 private TemperatureSensorSimulationService temperatureSensorSimulationSrv;
 ```
+xxxx
