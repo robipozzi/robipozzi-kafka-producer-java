@@ -10,8 +10,10 @@ import com.rpozzi.kafka.dto.SensorSimulator;
 @Service
 public class TemperatureSensorSimulationService extends AKafkaProducer {
 	private static final String GROUP_ID_CONFIG = "robi-temperatures";
+	private static final String SENSOR_KAFKA_MSG_KEY = "sensor-data";
 	@Value(value = "${kafka.topic.temperatures}")
 	private String temperaturesKafkaTopic;
+	
 
 	@Override
 	protected void customizeProducerConfigProps() {
@@ -23,6 +25,6 @@ public class TemperatureSensorSimulationService extends AKafkaProducer {
 		SensorSimulator sensorSimulator = new SensorSimulator();
 		logger.debug("Sensor Simulator Json string : " + sensorSimulator.toString());
 		logger.info("Publishing to '" + temperaturesKafkaTopic + "' Kafka topic (using SpringBoot Kafka APIs) ...");
-		kafkaTemplate.send(temperaturesKafkaTopic, sensorSimulator.toString());
+		kafkaTemplate.send(temperaturesKafkaTopic, TemperatureSensorSimulationService.SENSOR_KAFKA_MSG_KEY, sensorSimulator.toString());
 	}
 }
