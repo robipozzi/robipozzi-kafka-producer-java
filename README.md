@@ -1,10 +1,10 @@
 # Kafka Java Producer
 - [Introduction](#introduction)
 - [Setup and run Kafka](#setup-and-run-kafka)
-    - [Run Kafka cluster on local environment](#run-Kafka-cluster-on-local-environment)
-    - [Run Kafka cluster on Confluent](#run-Kafka-cluster-on-confluent)
+    - [Run Kafka cluster on local environment](#run-kafka-cluster-on-local-environment)
+    - [Run Kafka cluster on Confluent](#run-kafka-cluster-on-confluent)
     - [Create, delete and describe Kafka topics](#create-delete-and-describe-kafka-topics)
-    - [Producers and consumers using Kafka command line tools](#producers-and-consumers-using-Kafka-command-line-tools)
+    - [Producers and consumers using Kafka command line tools](#producers-and-consumers-using-kafka-command-line-tools)
 - [How the application works](#how-the-application-works)
     
 ## Introduction
