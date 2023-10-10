@@ -5,8 +5,8 @@ import java.util.Random;
 public class SensorSimulator {
 	private int temperature;
 	private int humidity;
-	private final int TEMPERATURE_MIN = -20;
-	private final int TEMPERATURE_MAX = 50;
+	private final int TEMPERATURE_MIN = 20;
+	private final int TEMPERATURE_MAX = 28;
 	private final int HUMIDITY_MIN = 0;
 	private final int HUMIDITY_MAX = 100;
 
