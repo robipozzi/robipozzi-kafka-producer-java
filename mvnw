@@ -307,6 +307,10 @@ export MAVEN_CMD_LINE_ARGS
 
 WRAPPER_LAUNCHER=org.apache.maven.wrapper.MavenWrapperMain
 
+echo "--> Running with JAVA_HOME = $JAVA_HOME"
+echo "--> Running with M2_HOME = $M2_HOME"
+echo "--> Running with MAVEN_PROJECTBASEDIR = $MAVEN_PROJECTBASEDIR"
+
 exec "$JAVACMD" \
   $MAVEN_OPTS \
   $MAVEN_DEBUG_OPTS \
