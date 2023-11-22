@@ -9,7 +9,11 @@ logging.level.root=info
 logging.level.com.rpozzi.kafka=info
 
 # Kafka properties
-spring.kafka.bootstrap-servers=localhost:9092
+spring.kafka.bootstrap-servers=localhost:9093
+# SSL settings
+spring.kafka.security.protocol=SSL
+spring.kafka.ssl.trust-store-location=<path to truststore file>
+spring.kafka.ssl.trust-store-password=<truststore password>
 
 # Application properties
 kafka.topic.temperatures=temperatures

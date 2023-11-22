@@ -1,0 +1,25 @@
+### Spring properties
+spring.application.name=robipozzi-kafka-producer-java
+spring.main.lazy-initialization=true
+
+### Logging properties
+debug=false
+#logging.file.name=/Users/robertopozzi/temp/kafka/consumer.log
+logging.level.root=info
+logging.level.com.rpozzi.kafka=debug
+
+### Kafka properties
+# --- Required connection configs for Kafka consumer
+spring.kafka.bootstrap-servers=<BOOTSTRAP_SERVER>
+spring.kafka.properties.sasl.mechanism=PLAIN
+spring.kafka.properties.sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required username='<USERNAME>' password='<PASSWORD>';
+spring.kafka.properties.security.protocol=SASL_SSL
+# --- Best practice for higher availability in Apache Kafka clients prior to 3.0
+spring.kafka.properties.session.timeout.ms=45000
+# --- Required connection configs for Confluent Cloud Schema Registry
+spring.kafka.properties.basic.auth.credentials.source=USER_INFO
+spring.kafka.properties.basic.auth.user.info={{ SR_API_KEY }}:{{ SR_API_SECRET }}
+spring.kafka.properties.schema.registry.url=https://{{ SR_ENDPOINT }}
+
+### Application properties
+kafka.topic.temperatures=temperatures

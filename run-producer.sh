@@ -17,6 +17,7 @@ VERSION=0.0.1-SNAPSHOT
 PROFILE_OPTION=$1
 ##### Variable section - END
 
+##### Function section - START
 main()
 {
 	if [ -z $PROFILE_OPTION ]; then 
@@ -27,7 +28,9 @@ main()
 	case $PROFILE_OPTION in
 		1)  java -jar target/$JAR_NAME-$VERSION.jar
 			;;
-        2)  java -jar target/$JAR_NAME-$VERSION.jar --spring.profiles.active=confluent
+		2)  java -jar target/$JAR_NAME-$VERSION.jar --spring.profiles.active=ssl
+			;;
+        3)  java -jar target/$JAR_NAME-$VERSION.jar --spring.profiles.active=confluent
             ;;
 		*) 	printf "\n${red}No valid option selected${end}\n"
 			printProfile
@@ -39,7 +42,8 @@ printProfile()
 {
 	echo ${grn}Select Kafka cluster run platform : ${end}
     echo "${grn}1. Localhost${end}"
-	echo "${grn}2. Confluent${end}"
+    echo "${grn}2. Localhost (SSL enabled)${end}"
+	echo "${grn}3. Confluent${end}"
 	read PROFILE_OPTION
 	setProfile
 }
@@ -49,13 +53,16 @@ setProfile()
 	case $PROFILE_OPTION in
 		1)  printf "\n${grn}Kafka cluster is on localhost, going with local profile ...${end}\n" 
 			;;
-        2)  printf "\n${grn}Kafka cluster is running on Confluent, going with confluent profile ...${end}\n"
+		2)  printf "\n${grn}Kafka cluster is on localhost with SSL enabled, going with ssl profile ...${end}\n" 
+			;;
+        3)  printf "\n${grn}Kafka cluster is running on Confluent, going with confluent profile ...${end}\n"
             ;;
 		*) 	printf "\n${red}No valid option selected${end}\n"
 			printProfile
 			;;
 	esac
 }
+##### Function section - END
 
 # ##############################################
 # #################### MAIN ####################

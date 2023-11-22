@@ -4,6 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 src/main/resources/application-confluent.properties
+src/main/resources/application-ssl.properties
 
 ### STS ###
 .apt_generated
