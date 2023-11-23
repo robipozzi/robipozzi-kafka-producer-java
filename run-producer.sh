@@ -25,6 +25,13 @@ main()
     fi
 	java -version
 	
+	#############################################################################################################################################
+	# The application will be launched with the profile selected (i.e.: --spring.profiles.active=<PROFILE>), 									#
+	# Spring Boot will search for a configuration file named application-<PROFILE>.properties and will load configuration properties from that. #
+	# 																																			#
+	# Alternatively, a different configuration file can be used at runtime by setting the following environment property:						#
+	# --spring.config.location=file://<path to application config file>																			#
+	#############################################################################################################################################
 	case $PROFILE_OPTION in
 		1)  java -jar target/$JAR_NAME-$VERSION.jar
 			;;
