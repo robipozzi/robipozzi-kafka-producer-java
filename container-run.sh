@@ -1,10 +1,8 @@
 source ./setenv.sh $1 $2
 
 ##### Variable section - START
-SCRIPT=run-producer.sh
-DEFAULT_TRUSTSTORE=$HOME/opt/robipozzi-kafka/ssl/kafka.client.truststore.jks
-JAR_NAME=robipozzi-kafka-producer-java
-VERSION=0.0.1-SNAPSHOT
+SCRIPT=container-run.sh
+DEFAULT_TRUSTSTORE=/opt/robipozzi-kafka/ssl/kafka.client.truststore.jks
 ##### Variable section - END
 
 ##### Function section - START
@@ -14,8 +12,17 @@ main()
 	if [ -z $PROFILE_OPTION ]; then 
         printProfile
     fi
-	java -version
-	
+    echo 
+    echo ${cyn}Running application in container ...${end}
+    runApp
+}
+
+runApp()
+{
+	echo ${cyn}Removing $CONTAINER_NAME container ...${end}
+	docker rm -f $CONTAINER_NAME
+	echo ${cyn}Container removed${end}
+	echo
 	#############################################################################################################################################
 	# The application will be launched with the profile selected (i.e.: --spring.profiles.active=<PROFILE>), 									#
 	# Spring Boot will search for a configuration file named application-<PROFILE>.properties and will load configuration properties from that. #
@@ -24,15 +31,16 @@ main()
 	# --spring.config.location=file://<path to application config file>																			#
 	#############################################################################################################################################
 	case $PROFILE_OPTION in
-		1)  java -jar target/$JAR_NAME-$VERSION.jar
+		1)  echo ${cyn}Running $CONTAINER_NAME container ...${end}
+			docker run -it --name $CONTAINER_NAME $CONTAINER_IMAGE_NAME:$CONTAINER_IMAGE_VERSION
 			;;
-		2)  inputTruststore
+		2)  echo ${cyn}Running $CONTAINER_NAME container ...${end}
+			inputTruststore
 			inputTruststorePassword
-			export TRUSTSTORE_LOCATION=$TRUSTSTORE
-			export TRUSTSTORE_PASSWORD=$TRUSTSTORE_PWD
-			java -jar target/$JAR_NAME-$VERSION.jar --spring.profiles.active=ssl
+			docker run -it -e SPRING_PROFILES_ACTIVE=ssl -e TRUSTSTORE_LOCATION=$TRUSTSTORE -e TRUSTSTORE_PASSWORD=$TRUSTSTORE_PWD -v $HOME/opt/robipozzi-kafka/ssl:/opt/robipozzi-kafka/ssl --name $CONTAINER_NAME $CONTAINER_IMAGE_NAME:$CONTAINER_IMAGE_VERSION
 			;;
-        3)  java -jar target/$JAR_NAME-$VERSION.jar --spring.profiles.active=confluent
+        3)  echo ${cyn}Running $CONTAINER_NAME container ...${end}
+			docker run -it -e "SPRING_PROFILES_ACTIVE=confluent" --name $CONTAINER_NAME $CONTAINER_IMAGE_NAME:$CONTAINER_IMAGE_VERSION
             ;;
 		*) 	printf "\n${red}No valid option selected${end}\n"
 			printProfile
@@ -58,10 +66,4 @@ inputTruststore()
 # ##############################################
 # #################### MAIN ####################
 # ##############################################
-# ************ START evaluate args ************"
-if [ "$1" != "" ]; then
-    setProfile
-fi
-# ************** END evaluate args **************"
-RUN_FUNCTION=main
-$RUN_FUNCTION
+main
