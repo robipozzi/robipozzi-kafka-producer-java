@@ -15,10 +15,6 @@ CURRENT_DIRECTORY=
 PROFILE_OPTION=$1
 TRUSTSTORE=$2
 TRUSTSTORE_PWD=
-CONTAINER_IMAGE_NAME=robipozzi-kafka-producer
-CONTAINER_IMAGE_VERSION=1.0
-CONTAINER_NAME=robipozzi-kafka-producer
-DOCKER_HUB_ID=robipozzi
 ###### Variable section - END
 
 ##### Function section - START
