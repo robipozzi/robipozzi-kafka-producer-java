@@ -27,12 +27,12 @@ public class KafkaProducerApplication {
 		SpringApplication.run(KafkaProducerApplication.class, args);
 	}
 
-	/****************************************************/
-	/****** Kafka publish services - Section START ******/
-	/****************************************************/
-	
+    /****************************************************/
+    /****** Kafka publish services - Section START ******/
+    /***/
+    
     @Bean
-    public ApplicationRunner runner() {
+    ApplicationRunner runner() {
         return args -> {
         	while (true) {
         		temperatureSensorSimulationSrv.publish();
@@ -41,13 +41,13 @@ public class KafkaProducerApplication {
 			}
         };
     }
-    
+
     /**************************************************/
-	/****** Kafka publish services - Section END ******/
-	/**************************************************/
+    /****** Kafka publish services - Section END ******/
+    /***/
     
     @Bean
-	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
+    CommandLineRunner commandLineRunner(ApplicationContext ctx) {
 		return args -> {
 			logger.debug("Let's inspect the beans provided by Spring Boot:");
 			logger.debug("************** Spring Boot beans - START **************");
